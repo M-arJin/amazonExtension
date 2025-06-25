@@ -1,0 +1,145 @@
+/* hello.css - Green & Grey Theme, All Text Centered */
+
+/* Basic Reset & Box Sizing */
+html {
+    box-sizing: border-box;
+}
+*, *::before, *::after {
+    box-sizing: inherit;
+}
+
+/* Body Styling - Sets up the popup size and basic font */
+body {
+    
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    font-size: 15px; /* Slightly larger base font */
+    margin: 0;
+    padding: 0;
+    width: 320px; /* Consistent width */
+    min-height: 120px; /* Consistent min height */
+    background-color: #f2f2f2; /* Light grey background */
+    color: #333333; /* Dark grey text for readability */
+    overflow-x: hidden;
+}
+
+/* Container for content - Adds more padding */
+.container {
+    padding: 25px 30px; /* Consistent padding */
+}
+
+/* Header Styling - Centered */
+h1 {
+    font-size: 1.6em;
+    color: #4CAF50; /* Vibrant green for headings */
+    margin-top: 0;
+    margin-bottom: 20px;
+    text-align: center; /* Centered */
+    border-bottom: 1px solid #e0e0e0; /* Lighter grey separator */
+    padding-bottom: 15px;
+}
+
+/* Paragraphs and Text Elements - Centered */
+p {
+    line-height: 1.7;
+    margin-bottom: 15px;
+    text-align: center; /* Centered */
+    word-wrap: break-word;
+}
+
+/* Specific styling for the received data div - Centered */
+#receivedData {
+    font-weight: bold;
+    color: #4CAF50; /* Green text for the data */
+    background-color: #e8f5e9; /* Very light green background for data box */
+    padding: 15px;
+    border-radius: 8px;
+    border: 1px solid #81C784; /* Slightly darker green border */
+    margin-bottom: 30px;
+    font-size: 1.1em;
+    text-align: center; /* Centered */
+}
+
+/* Button Styling */
+button {
+    display: block;
+    width: 100%;
+    padding: 12px 18px;
+    border: none;
+    border-radius: 6px;
+    background-color: #4CAF50; /* Green button */
+    color: white; /* White text on green button */
+    font-size: 1.1em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+    text-align: center; /* Ensures button text is centered */
+}
+
+button:hover {
+    background-color: #43A047; /* Slightly darker green on hover */
+    transform: translateY(-1px);
+}
+
+button:active {
+    background-color: #388E3C; /* Even darker on click */
+    transform: translateY(0);
+}
+
+/* Basic Form Element Styling (if applicable) */
+input[type="text"],
+input[type="number"],
+textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #cccccc; /* Mid-grey border */
+    border-radius: 4px;
+    background-color: #ffffff; /* White input background */
+    color: #333333; /* Dark text in inputs */
+    box-sizing: border-box;
+    font-size: 1em;
+    text-align: center; /* Centered input text */
+}
+
+/* Placeholder text color - Centered */
+input::placeholder,
+textarea::placeholder {
+    color: #999999;
+    text-align: center; /* Centered placeholder text */
+}
+
+/* Focus styles for input */
+input:focus,
+textarea:focus {
+    border-color: #4CAF50; /* Green border on focus */
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.3); /* Green glow on focus */
+}
+
+/* Error or status messages - Centered */
+.error-message {
+    color: #D32F2F; /* Red for errors */
+    font-size: 0.95em;
+    margin-top: 10px;
+    text-align: center; /* Centered */
+}
+
+.success-message {
+    color: #4CAF50; /* Green for success */
+    font-size: 0.95em;
+    margin-top: 10px;
+    text-align: center; /* Centered */
+}
+
+/* Utility Classes (optional) */
+.text-center {
+    text-align: center;
+}
+
+.margin-top {
+    margin-top: 20px;
+}
+
+.margin-bottom {
+    margin-bottom: 20px;
+}
