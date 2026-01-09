@@ -4,14 +4,15 @@
   "version": "1.0",
   "content_scripts": [
     {
-      "matches": ["https://www.amazon.com.au/*"],
+      "matches": ["https://www.amazon.com.au/*", "https://www.umart.com.au/*", "https://www.ebay.com.au/*"],
       "js": ["content.js"]
     }
   ],
 
   
   "permissions": [
-    "storage"
+    "storage",
+    "activeTab"
   ],
 
   "action": {

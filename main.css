@@ -1,145 +1,167 @@
-/* hello.css - Green & Grey Theme, All Text Centered */
+:root {
+    --primary: #2563eb;       /* Modern Blue */
+    --primary-hover: #1d4ed8;
+    --bg-gradient: linear-gradient(135deg, #f8fafc 0%, #eff6ff 100%);
+    --text-main: #1e293b;
+    --text-muted: #64748b;
+    --card-bg: #ffffff;
+    --border: #e2e8f0;
+    --shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
 
-/* Basic Reset & Box Sizing */
-html {
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background: var(--bg-gradient);
+    color: var(--text-main);
+    margin: 0;
+    width: 350px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.app-container {
+    width: 100%;
+    padding: 24px;
+    animation: fadeIn 0.4s ease-out;
+}
+
+/* Header Section */
+header {
+    text-align: center;
+    margin-bottom: 24px;
+}
+
+h1 {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--primary);
+    margin: 0;
+    letter-spacing: -0.025em;
+}
+
+.subtitle {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin-top: 4px;
+}
+
+/* Inputs */
+.input-group {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+    letter-spacing: 0.05em;
+}
+
+input[type="number"] {
+    width: 100%;
+    padding: 12px 16px;
+    border: 2px solid var(--border);
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: 600;
+    transition: all 0.2s ease;
+    background-color: var(--card-bg);
     box-sizing: border-box;
 }
-*, *::before, *::after {
-    box-sizing: inherit;
+
+input:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
 }
 
-/* Body Styling - Sets up the popup size and basic font */
-body {
-    
-    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-    font-size: 15px; /* Slightly larger base font */
-    margin: 0;
-    padding: 0;
-    width: 320px; /* Consistent width */
-    min-height: 120px; /* Consistent min height */
-    background-color: #f2f2f2; /* Light grey background */
-    color: #333333; /* Dark grey text for readability */
-    overflow-x: hidden;
-}
-
-/* Container for content - Adds more padding */
-.container {
-    padding: 25px 30px; /* Consistent padding */
-}
-
-/* Header Styling - Centered */
-h1 {
-    font-size: 1.6em;
-    color: #4CAF50; /* Vibrant green for headings */
-    margin-top: 0;
-    margin-bottom: 20px;
-    text-align: center; /* Centered */
-    border-bottom: 1px solid #e0e0e0; /* Lighter grey separator */
-    padding-bottom: 15px;
-}
-
-/* Paragraphs and Text Elements - Centered */
-p {
-    line-height: 1.7;
-    margin-bottom: 15px;
-    text-align: center; /* Centered */
-    word-wrap: break-word;
-}
-
-/* Specific styling for the received data div - Centered */
-#receivedData {
-    font-weight: bold;
-    color: #4CAF50; /* Green text for the data */
-    background-color: #e8f5e9; /* Very light green background for data box */
-    padding: 15px;
-    border-radius: 8px;
-    border: 1px solid #81C784; /* Slightly darker green border */
-    margin-bottom: 30px;
-    font-size: 1.1em;
-    text-align: center; /* Centered */
-}
-
-/* Button Styling */
+/* Button */
 button {
-    display: block;
     width: 100%;
-    padding: 12px 18px;
+    padding: 14px;
+    background-color: var(--primary);
+    color: white;
     border: none;
-    border-radius: 6px;
-    background-color: #4CAF50; /* Green button */
-    color: white; /* White text on green button */
-    font-size: 1.1em;
-    font-weight: bold;
+    border-radius: 12px;
+    font-size: 0.95rem;
+    font-weight: 600;
     cursor: pointer;
-    transition: background-color 0.2s ease, transform 0.1s ease;
-    text-align: center; /* Ensures button text is centered */
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 6px -1px rgba(37, 99, 235, 0.2);
+    margin-bottom: 20px;
 }
 
 button:hover {
-    background-color: #43A047; /* Slightly darker green on hover */
+    background-color: var(--primary-hover);
     transform: translateY(-1px);
+    box-shadow: 0 10px 15px -3px rgba(37, 99, 235, 0.3);
 }
 
 button:active {
-    background-color: #388E3C; /* Even darker on click */
     transform: translateY(0);
 }
 
-/* Basic Form Element Styling (if applicable) */
-input[type="text"],
-input[type="number"],
-textarea {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 15px;
-    border: 1px solid #cccccc; /* Mid-grey border */
-    border-radius: 4px;
-    background-color: #ffffff; /* White input background */
-    color: #333333; /* Dark text in inputs */
-    box-sizing: border-box;
-    font-size: 1em;
-    text-align: center; /* Centered input text */
+/* Results Area */
+#receivedData {
+    background: var(--card-bg);
+    border-radius: 16px;
+    padding: 20px;
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow);
+    min-height: 60px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    transition: all 0.3s ease;
 }
 
-/* Placeholder text color - Centered */
-input::placeholder,
-textarea::placeholder {
-    color: #999999;
-    text-align: center; /* Centered placeholder text */
+/* Styling for the dynamic JS generated content */
+#receivedData div {
+    border-bottom: 1px solid #f1f5f9;
+    padding-bottom: 8px;
 }
 
-/* Focus styles for input */
-input:focus,
-textarea:focus {
-    border-color: #4CAF50; /* Green border on focus */
-    outline: none;
-    box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.3); /* Green glow on focus */
+#receivedData div:last-child {
+    border-bottom: none;
 }
 
-/* Error or status messages - Centered */
-.error-message {
-    color: #D32F2F; /* Red for errors */
-    font-size: 0.95em;
-    margin-top: 10px;
-    text-align: center; /* Centered */
+#receivedData h1 { /* Sublabels */
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    text-align: left;
+    margin-bottom: 4px;
 }
 
-.success-message {
-    color: #4CAF50; /* Green for success */
-    font-size: 0.95em;
-    margin-top: 10px;
-    text-align: center; /* Centered */
+#receivedData h2, #receivedData h1:last-child { /* Values */
+    font-size: 1.1rem;
+    color: var(--text-main);
+    text-align: left;
+    margin: 0;
 }
 
-/* Utility Classes (optional) */
-.text-center {
-    text-align: center;
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
-.margin-top {
-    margin-top: 20px;
+.pulse-icon {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    background-color: var(--primary);
+    border-radius: 50%;
+    margin-right: 8px;
+    animation: pulse 2s infinite;
 }
 
-.margin-bottom {
-    margin-bottom: 20px;
+@keyframes pulse {
+    0% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(1.2); }
+    100% { opacity: 1; transform: scale(1); }
 }

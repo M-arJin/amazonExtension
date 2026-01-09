@@ -1,17 +1,31 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Price To Hours Calc</title>
+  <meta charset="UTF-8">
+  <title>WorkTime Calculator</title>
   <link rel="stylesheet" href="main.css">
 </head>
 <body>
-  <h1>Enter your Hourly Rate:</h1>
-  <input id="hourly" type="number" min="0" step="0.01" value="22.50">
-  <button id="submit">Calculate</button>
-  <div id="receivedData">Waiting for data...</div>
+  <div class="app-container">
+    <header>
+      <h1>WorkTime</h1>
+      <p class="subtitle">Convert cost to hours</p>
+    </header>
 
+    <main>
+      <div class="input-group">
+        <label for="hourly">Your Hourly Rate ($)</label>
+        <input id="hourly" type="number" min="0" step="0.01" value="22.50" placeholder="0.00">
+      </div>
 
+      <button id="submit">Calculate Time</button>
 
+      <div id="receivedData" class="status-box">
+        <span class="pulse-icon"></span>
+        Waiting for data...
+      </div>
+    </main>
+  </div>
   <script src="hello.js"></script>
 </body>
 </html>

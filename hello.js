@@ -50,6 +50,14 @@ function calculate() {
 
     //Calculation for the amount of hours
     let hours = (cost / hourlyRate.value).toFixed(2)
+    let minutes = Math.round(hours * 60)
+
+
+    let fixedHours = Math.floor(minutes / 60)
+    let fixedMinutes = minutes - (fixedHours * 60)
+    console.log(fixedHours)
+    console.log(fixedMinutes)
+
 
 
     //Clearing the popup's body before interacting with the DOM
@@ -76,9 +84,11 @@ function calculate() {
     //Creating div along with labels and values for the amount of hours the user will have to work in order to be able to purchase the item
     let hoursDiv = document.createElement("div")
     let hoursLabel = document.createElement("h1")
-    hoursLabel.innerHTML = "Amount of Hours to work:"
+
+
+    hoursLabel.innerHTML = "Amount of Time to work:"
     let hoursDisplay = document.createElement("h1")
-    hoursDisplay.innerHTML = hours+" hours"
+    hoursDisplay.innerHTML = `${fixedHours} Hours and ${fixedMinutes} Minutes`
     hoursDiv.appendChild(hoursLabel)
     hoursDiv.appendChild(hoursDisplay)
 
