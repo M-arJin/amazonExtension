@@ -12,6 +12,9 @@ if (url.includes("https://www.amazon.com.au/")) {
 } else if (url.includes("https://www.ebay.com.au/")) {
     console.log("EBAY!!!")
     getInfo("EBAY")
+} else if (url.includes("https://www.facebook.com/")) {
+    console.log("FACEBOOK")
+    getInfo("FACEBOOK")
 }
 
 //Considering the STORE, it will retrieve the price tag from said store and pass it through to BACKGROUND.js where it will be stored locally
@@ -29,6 +32,11 @@ function getInfo(store) {
         information = price.innerHTML
         information = information.split(' ')
         information = information[1]
+    } else if (store === "FACEBOOK") {
+        const elements = Array.from(document.querySelectorAll('span[dir="auto"]'));
+        const priceElement = elements.find(el => el.textContent.includes('$'));
+
+        information = priceElement.innerText
     }
     
     

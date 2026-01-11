@@ -3,26 +3,61 @@
 <head>
   <meta charset="UTF-8">
   <title>WorkTime Calculator</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="main.css">
 </head>
 <body>
   <div class="app-container">
     <header>
-      <h1>WorkTime</h1>
-      <p class="subtitle">Convert cost to hours</p>
+      <img src="logo.png" alt="WorkTime Logo" class="logo">
+      <div class="header-text">
+        <h1>WorkTime</h1>
+        <p class="subtitle">Mindful Spending Shield</p>
+      </div>
     </header>
 
     <main>
-      <div class="input-group">
-        <label for="hourly">Your Hourly Rate ($)</label>
-        <input id="hourly" type="number" min="0" step="0.01" value="22.50" placeholder="0.00">
+      <div class="card setup-card">
+        <div class="input-group">
+          <label for="hourly">Your Hourly Rate ($)</label>
+          <input id="hourly" type="number" min="0" step="0.01" value="22.50">
+        </div>
+        <button id="submit">Calculate Time Cost</button>
       </div>
 
-      <button id="submit">Calculate Time</button>
-
       <div id="receivedData" class="status-box">
-        <span class="pulse-icon"></span>
-        Waiting for data...
+        <span class="pulse"></span> Scanning for prices...
+      </div>
+
+      <div id="action-container" class="hidden fade-in">
+        <div class="decision-card">
+          <p>Is this worth the work?</p>
+          <div class="button-row">
+            <button id="buy-btn" class="btn-buy">I Bought It</button>
+            <button id="save-btn" class="btn-save">Shield My Money</button>
+          </div>
+        </div>
+      </div>
+
+      <div id="results-area" class="hidden fade-in">
+        <div class="stats-grid">
+          <div class="stat-item">
+            <span class="label">Total Saved</span>
+            <span id="total-saved" class="value gold-text">$0.00</span>
+          </div>
+          <div class="stat-item">
+            <span class="label">Total Spent</span>
+            <span id="total-spent" class="value">$0.00</span>
+          </div>
+        </div>
+
+        <div id="savings" class="growth-card">
+          <span class="label">Potential Value (4.15% p.a.)</span>
+          <span id="saving-amount" class="value">$0.00</span>
+          <div class="growth-indicator"></div>
+        </div>
       </div>
     </main>
   </div>

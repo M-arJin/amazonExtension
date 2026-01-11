@@ -1,14 +1,24 @@
 let cost = ""
+const statsDiv = document.getElementById('stats');
+const savedDisplay = document.getElementById('totalSaved');
+const spentDisplay = document.getElementById('totalSpent');
 const receivedDataDiv = document.getElementById('receivedData');
 
 
 //Ensuring that the website as fully loaded
 document.addEventListener('DOMContentLoaded', async () => {
+
+  chrome.storage.local.get(['totalSaved', 'totalSpent'], (result) => {
+        savedDisplay.textContent = `$${(result.totalSaved || 0).toFixed(2)}`;
+        spentDisplay.textContent = `$${(result.totalSpent || 0).toFixed(2)}`;
+        statsDiv.style.display = "block";
+  });
   
   //If the div exists then execute following
   if (!receivedDataDiv) return;
   //Updating the div in hello.html (POPUP)
   receivedDataDiv.textContent = "Requesting data from background...";
+  
 
 
   try {
@@ -41,62 +51,69 @@ button.addEventListener("click", function() {
     calculate()
 })
 
-//Calculates the amount of hours required to work considering the price of the item and the user's hourly rate
+// Inside calculate() function
 function calculate() {
-    let hourlyRate = document.getElementById("hourly")  
+    let hourlyRate = document.getElementById("hourly").value;
+    let numericCost = parseFloat(cost);
+
+    if (isNaN(numericCost) || isNaN(hourlyRate) || hourlyRate <= 0) {
+        receivedDataDiv.textContent = "Please enter a valid rate.";
+        return;
+    }
+
+    // Calculation for the amount of hours
+    let totalMinutes = Math.round((numericCost / hourlyRate) * 60);
+    let fixedHours = Math.floor(totalMinutes / 60);
+    let fixedMinutes = totalMinutes % 60;
+
+    // Display the Time Cost
+    receivedDataDiv.innerHTML = `
+      <div style="text-align:center">
+        <div class="label">This item costs</div>
+        <div class="value" style="font-size:1.4rem">$${numericCost.toFixed(2)}</div>
+        <div class="label" style="margin-top:10px">Work time required:</div>
+        <div class="value" style="color:#6366f1">${fixedHours}h ${fixedMinutes}m</div>
+      </div>
+    `;
+
+    // Show the "Did you buy it?" buttons
+    const actionContainer = document.getElementById('action-container');
+    actionContainer.classList.remove('hidden');
     
-    //Converting the string to a float value
-    cost = parseFloat(cost)
-
-    //Calculation for the amount of hours
-    let hours = (cost / hourlyRate.value).toFixed(2)
-    let minutes = Math.round(hours * 60)
-
-
-    let fixedHours = Math.floor(minutes / 60)
-    let fixedMinutes = minutes - (fixedHours * 60)
-    console.log(fixedHours)
-    console.log(fixedMinutes)
-
-
-
-    //Clearing the popup's body before interacting with the DOM
-    receivedDataDiv.innerHTML = ""
-
-    //Creating div along with labels and values for the user's inputted HOURLY rate 
-    let hourlyRateDiv = document.createElement("div")
-    let hourlyRateLabel = document.createElement("h1")
-    hourlyRateLabel.innerHTML = "Your Hourly Rate:"
-    let hourleyRateDisplay = document.createElement("h2")
-    hourleyRateDisplay.innerHTML = "$"+hourlyRate.value
-    hourlyRateDiv.appendChild(hourlyRateLabel)
-    hourlyRateDiv.appendChild(hourleyRateDisplay)
-
-    //Creating div along with labels and values for the price of the item the user is viewing
-    let costDiv = document.createElement("div")
-    let costLabel = document.createElement("h1")
-    costLabel.innerHTML = "Cost of Item"
-    let costDisplay = document.createElement("h2")
-    costDisplay.innerHTML = "$"+cost
-    costDiv.appendChild(costLabel)
-    costDiv.appendChild(costDisplay)
-
-    //Creating div along with labels and values for the amount of hours the user will have to work in order to be able to purchase the item
-    let hoursDiv = document.createElement("div")
-    let hoursLabel = document.createElement("h1")
-
-
-    hoursLabel.innerHTML = "Amount of Time to work:"
-    let hoursDisplay = document.createElement("h1")
-    hoursDisplay.innerHTML = `${fixedHours} Hours and ${fixedMinutes} Minutes`
-    hoursDiv.appendChild(hoursLabel)
-    hoursDiv.appendChild(hoursDisplay)
-
-    //Appending all information to the body div in hello.html (POPUP)
-    receivedDataDiv.appendChild(hourlyRateDiv)
-    receivedDataDiv.appendChild(costDiv)
-    receivedDataDiv.appendChild(hoursDiv)
-    
-    // receivedDataDiv.textContent = `In order to purchase this item at the cost of `+ cost +` and your hourly rate of `+ hourlyRate.value + ` you will have to work: ` + hours + ` amount of hours`;
-
+    // Set up button listeners
+    document.getElementById('buy-btn').onclick = () => handleDecision('spent', numericCost);
+    document.getElementById('save-btn').onclick = () => handleDecision('saved', numericCost);
 }
+
+async function handleDecision(type, amount) {
+    const key = type === 'saved' ? 'totalSaved' : 'totalSpent';
+    
+    // Get existing totals from storage
+    const data = await chrome.storage.local.get(['totalSaved', 'totalSpent']);
+    const currentTotal = data[key] || 0;
+    
+    // Update storage
+    await chrome.storage.local.set({ [key]: currentTotal + amount });
+
+    // Hide decision buttons and show results
+    document.getElementById('action-container').classList.add('hidden');
+    updateStatsDisplay();
+    document.getElementById('results-area').classList.remove('hidden');
+}
+
+function updateStatsDisplay() {
+    chrome.storage.local.get(['totalSaved', 'totalSpent'], (data) => {
+        const saved = data.totalSaved || 0;
+        const spent = data.totalSpent || 0;
+        
+        document.getElementById('total-saved').textContent = `$${saved.toFixed(2)}`;
+        document.getElementById('total-spent').textContent = `$${spent.toFixed(2)}`;
+        
+        // Compound growth calculation
+        const growth = saved * 1.0415;
+        document.getElementById('saving-amount').textContent = `$${growth.toFixed(2)}`;
+    });
+}
+
+// Call this on load to show existing totals
+updateStatsDisplay();
